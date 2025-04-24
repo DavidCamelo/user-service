@@ -55,4 +55,4 @@ jobs:
             kubernetes/deployment.yml
             kubernetes/service.yml
           images: |
-            ${{steps.prepare.outputs.docker_image}}:${{steps.prepare.outputs.sha_short}}
+            ${{steps.prepare.outputs.docker_image}}:$IMAGE_TAG-${{steps.prepare.outputs.sha_short}}
