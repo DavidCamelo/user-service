@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI / Kubernetes Deployment CD
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
         with:
           action: deploy
           namespace: spring-boot
-          validate: false
+          skip-tls-verify: false
           manifests: |
             kubernetes/deployment.yml
             kubernetes/service.yml
