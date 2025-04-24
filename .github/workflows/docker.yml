@@ -49,6 +49,7 @@ jobs:
         with:
           action: deploy
           namespace: spring-boot
+          validate: false
           manifests: |
             kubernetes/deployment.yml
             kubernetes/service.yml
