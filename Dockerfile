@@ -4,6 +4,7 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean install -DskipTests=true --no-transfer-progress
 
 FROM eclipse-temurin:21-jammy
-COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
+ARG artifactId
+COPY --from=build /home/app/target/*.jar /usr/local/lib/${artifactId}.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /usr/local/lib/app.jar" ]
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /usr/local/lib/${artifactId}.jar" ]
