@@ -131,25 +131,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>get-artifact-id</id>
-						<phase>prepare-package</phase>
-						<configuration>
-							<target>
-								<propertyfile file="${project.build.directory}/build.properties">
-									<entry key="artifactId" value="${project.artifactId}"/>
-								</propertyfile>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
