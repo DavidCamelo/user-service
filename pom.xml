@@ -139,10 +139,9 @@
 						<phase>prepare-package</phase>
 						<configuration>
 							<target>
-								<property name="artifactId" value="${project.artifactId}"/>
-								<echo message="Artifact ID: ${artifactId}"/>
 								<propertyfile file="${project.build.directory}/build.properties">
-									<entry key="artifactId" value="${artifactId}"/>
+									<entry key="artifactId" value="${project.artifactId}"/>
+									<echo message="Artifact ID: ${artifactId}"/>
 								</propertyfile>
 							</target>
 						</configuration>
