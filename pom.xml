@@ -141,7 +141,6 @@
 							<target>
 								<propertyfile file="${project.build.directory}/build.properties">
 									<entry key="artifactId" value="${project.artifactId}"/>
-									<echo message="Artifact ID: ${artifactId}"/>
 								</propertyfile>
 							</target>
 						</configuration>
