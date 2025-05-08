@@ -6,6 +6,7 @@ import com.davidcamelo.user.entity.User;
 import com.davidcamelo.user.error.UserException;
 import com.davidcamelo.user.repository.UserRepository;
 import com.davidcamelo.user.service.UserService;
+import com.davidcamelo.user.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private final UserMapper userMapper;
     private final UserRepository userRepository;
 
     @Override
@@ -24,12 +26,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getById(Long id) {
-        return map(findById(id));
+        return userMapper.map(findById(id));
     }
 
     @Override
     public List<UserDTO> getAll() {
-        return userRepository.findAll().stream().map(this::map).toList();
+        return userRepository.findAll().stream().map(userMapper::map).toList();
     }
 
     @Override
@@ -43,24 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDTO upsert(UserDTO userDTO, User user) {
-        map(userDTO, user);
-        return map(userRepository.save(user));
+        userMapper.map(userDTO, user);
+        return userMapper.map(userRepository.save(user));
     }
 
     private User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserException(ErrorDTO.builder().message(String.format("User with id %s not found", id)).timestamp(new Date()).build()));
-    }
-
-    private UserDTO map(User user) {
-        return UserDTO.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .lastName(user.getLastName())
-                .build();
-    }
-
-    private void map(UserDTO userDTO, User user) {
-        user.setName(userDTO.name());
-        user.setLastName(userDTO.lastName());
     }
 }
