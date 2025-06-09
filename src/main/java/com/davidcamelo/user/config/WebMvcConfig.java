@@ -10,6 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
+                .allowedOrigins("https://react-ui.davidcamelo.com")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowedOriginPatterns("*")
