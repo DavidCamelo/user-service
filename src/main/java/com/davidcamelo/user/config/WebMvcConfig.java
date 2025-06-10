@@ -11,6 +11,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins(
+                        "https://spring-boot.davidcamelo.com",
                         "http://localhost:4173", "http://localhost:4174", "http://localhost:4175", "http://localhost:4176",
                         "http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176",
                         "https://components-ui.davidcamelo.com", "https://user-ui.davidcamelo.com",
