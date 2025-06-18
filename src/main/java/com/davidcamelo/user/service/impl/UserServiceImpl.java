@@ -1,6 +1,7 @@
 package com.davidcamelo.user.service.impl;
 
 import com.davidcamelo.user.dto.ErrorDTO;
+import com.davidcamelo.user.dto.FilterDTO;
 import com.davidcamelo.user.dto.UserDTO;
 import com.davidcamelo.user.entity.User;
 import com.davidcamelo.user.error.UserException;
@@ -8,10 +9,13 @@ import com.davidcamelo.user.repository.UserRepository;
 import com.davidcamelo.user.service.UserService;
 import com.davidcamelo.user.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAll() {
-        return userRepository.findAll().stream().map(userMapper::map).toList();
+    public Page<UserDTO> getAll(FilterDTO filterDTO) {
+        if (filterDTO.getPageNumber() != null && filterDTO.getPageSize() != null) {
+            var pageRequest = PageRequest.of(filterDTO.getPageNumber(), filterDTO.getPageSize(), Sort.by(new Sort.Order(filterDTO.getSortDirection(), filterDTO.getSortBy())));
+            return userMapper.mapPage(userRepository.findAll(pageRequest));
+        }
+        var users = userRepository.findAll().stream().map(userMapper::map).toList();
+        return new PageImpl<>(users, PageRequest.of(0, users.size()), users.size());
     }
 
     @Override
