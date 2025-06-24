@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
             return userMapper.mapPage(userRepository.findAll(pageRequest));
         }
         var users = userRepository.findAll().stream().map(userMapper::map).toList();
-        return new PageImpl<>(users);
+        return new PageImpl<>(users, PageRequest.of(0, users.size()), users.size());
     }
 
     @Override
