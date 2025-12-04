@@ -4,7 +4,7 @@ import com.davidcamelo.user.dto.ErrorDTO;
 import com.davidcamelo.user.dto.FilterDTO;
 import com.davidcamelo.user.dto.UserDTO;
 import com.davidcamelo.user.entity.User;
-import com.davidcamelo.user.error.UserException;
+import com.davidcamelo.user.error.UserNotFoundException;
 import com.davidcamelo.user.repository.UserRepository;
 import com.davidcamelo.user.service.UserService;
 import com.davidcamelo.user.util.mapper.UserMapper;
@@ -59,6 +59,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserException(ErrorDTO.builder().message(String.format("User with id %s not found", id)).timestamp(new Date()).build()));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDTO.builder().message(String.format("User with id %s not found", id)).timestamp(new Date()).build()));
     }
 }

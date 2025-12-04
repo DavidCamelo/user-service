@@ -4,9 +4,9 @@ import com.davidcamelo.user.dto.ErrorDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class UserException extends RuntimeException {
+public class UserNotFoundException extends RuntimeException {
 
-    public UserException(ErrorDTO errorDTO) {
+    public UserNotFoundException(ErrorDTO errorDTO) {
         super(errorDTO.message());
         log.error("Error message: {}, timestamp: {}", errorDTO.message(), errorDTO.timestamp(), this);
     }

@@ -12,8 +12,8 @@ import java.util.Date;
 @RestControllerAdvice(assignableTypes = { UserController.class })
 public class UserControllerAdvice {
 
-    @ExceptionHandler(value = { UserException.class })
-    public ResponseEntity<ErrorDTO> handleUserException(UserException ex) {
+    @ExceptionHandler(value = { UserNotFoundException.class })
+    public ResponseEntity<ErrorDTO> handleUserException(UserNotFoundException ex) {
         return new ResponseEntity<>(ErrorDTO.builder().message(ex.getMessage()).timestamp(new Date()).build(), HttpStatus.NOT_FOUND);
     }
 }
