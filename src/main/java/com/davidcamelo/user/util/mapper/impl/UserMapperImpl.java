@@ -11,6 +11,9 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public UserDTO map(User user) {
+        if (user == null) {
+            return null;
+        }
         return UserDTO.builder()
                 .id(user.getId())
                 .name(user.getName())
@@ -20,6 +23,9 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public void map(UserDTO userDTO, User user) {
+        if (userDTO == null || user == null) {
+            return;
+        }
         user.setName(userDTO.name());
         user.setLastName(userDTO.lastName());
     }
